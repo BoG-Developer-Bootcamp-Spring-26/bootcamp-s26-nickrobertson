@@ -37,7 +37,13 @@ const railArray = await getRealTimeRailCoordinates();
  */
 function getKeysToArr(arrivals) {
   // TODO
+  const keysArray = [];
+  for (let key in arrivals[0]) {
+    keysArray.push(key);
+  }
+  return keysArray;
 }
+
 
 /**
  * Task 2: We want to know which train is coming in 1 mintue!
@@ -53,6 +59,13 @@ function getKeysToArr(arrivals) {
  */
 function getTrainComingIn1Minute(arrivals) {
   // TODO
+  const trainComingIn1Minute = [];
+  arrivals.forEach(arrival => {
+      if (arrival.WAITING_TIME === "1 min") {
+        trainComingIn1Minute.push(arrival);
+      }
+  });
+  return trainComingIn1Minute;
 }
 
 /**
@@ -85,8 +98,10 @@ function getTrainComingIn1Minute(arrivals) {
  */
 function updateLineColor(arrivals) {
   // TODO
+  let blueLineTrains = arrivals.filter(arrival => arrival.LINE === "BLUE");
+  let pinkLineTrains = blueLineTrains.map(arrival => ({...arrival, LINE: "PINK"}));
+  return pinkLineTrains;
 }
-
 /*
   TESTS:
     You may want to run these one at a time to see the output. If you run them and the API call works,
